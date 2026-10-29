@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
-  SafeAreaView,
 } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -25,6 +25,7 @@ const { width } = Dimensions.get('window');
 export const ProductDetailScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
   const { productId } = route.params;
 
   const [product, setProduct] = useState(null);
@@ -99,9 +100,10 @@ export const ProductDetailScreen = () => {
   }
 
   const favorite = isFavorite(product.id);
+  const bottomPadding = Math.max(12, insets.bottom + 4);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['top']}>
       <StatusBar style="dark" />
 
       {/* Top Bar */}
@@ -171,11 +173,11 @@ export const ProductDetailScreen = () => {
           <Text style={styles.description}>{product.description}</Text>
         </View>
 
-        <View style={{ height: 100 }} />
+        <View style={{ height: 120 }} />
       </ScrollView>
 
       {/* Bottom Sticky Action Bar */}
-      <View style={styles.bottomBar}>
+      <View style={[styles.bottomBar, { paddingBottom: bottomPadding }]}>
         {/* Quantity Controls */}
         <View style={styles.stepper}>
           <TouchableOpacity
@@ -348,10 +350,15 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 3,
+    elevation: 4,
   },
   stepper: {
     flexDirection: 'row',

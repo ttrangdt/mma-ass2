@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
 import { ProductListScreen } from '../screens/ProductListScreen';
@@ -16,8 +17,12 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainTabs = () => {
+  const insets = useSafeAreaInsets();
   const { totalItemCount } = useCart();
   const { favoritesCount } = useFavorites();
+
+  const bottomInset = insets.bottom > 0 ? insets.bottom : 8;
+  const barHeight = 52 + bottomInset;
 
   return (
     <Tab.Navigator
@@ -28,9 +33,10 @@ const MainTabs = () => {
         tabBarStyle: {
           backgroundColor: '#FFFFFF',
           borderTopColor: COLORS.border,
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
+          borderTopWidth: 1,
+          height: barHeight,
+          paddingBottom: bottomInset,
+          paddingTop: 6,
         },
         tabBarLabelStyle: {
           fontSize: 11,

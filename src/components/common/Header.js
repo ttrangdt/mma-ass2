@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../constants/theme';
@@ -24,7 +23,7 @@ export const Header = ({
   return (
     <View style={styles.header}>
       <View style={styles.searchBar}>
-        <Ionicons name="search" size={18} color="#94A3B8" style={styles.searchIcon} />
+        <Ionicons name="search" size={17} color="#94A3B8" style={styles.searchIcon} />
         <TextInput
           style={styles.input}
           placeholder={placeholder}
@@ -35,13 +34,13 @@ export const Header = ({
         />
         {searchQuery ? (
           <TouchableOpacity onPress={() => onSearchChange && onSearchChange('')} style={styles.clearBtn}>
-            <Ionicons name="close-circle" size={18} color="#94A3B8" />
+            <Ionicons name="close-circle" size={16} color="#94A3B8" />
           </TouchableOpacity>
         ) : null}
 
         {onCameraPress && (
           <TouchableOpacity onPress={onCameraPress} style={styles.cameraBtn} activeOpacity={0.7}>
-            <Ionicons name="camera-outline" size={20} color={COLORS.primary} />
+            <Ionicons name="camera-outline" size={19} color={COLORS.primary} />
           </TouchableOpacity>
         )}
       </View>
@@ -49,13 +48,13 @@ export const Header = ({
       {/* AI Assistant Button */}
       {onAiPress && (
         <TouchableOpacity onPress={onAiPress} style={styles.aiBtn} activeOpacity={0.7}>
-          <Ionicons name="sparkles" size={20} color={COLORS.primary} />
+          <Ionicons name="sparkles" size={18} color={COLORS.primary} />
         </TouchableOpacity>
       )}
 
       {/* Cart Button */}
       <TouchableOpacity onPress={onCartPress} style={styles.cartBtn} activeOpacity={0.7}>
-        <Ionicons name="cart-outline" size={26} color={COLORS.text} />
+        <Ionicons name="cart-outline" size={24} color={COLORS.text} />
         {totalItemCount > 0 && (
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
@@ -74,12 +73,12 @@ export const HeaderShopee = Header;
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#FFFFFF',
-    paddingTop: Platform.OS === 'ios' ? 50 : 16,
-    paddingBottom: 12,
-    paddingHorizontal: 16,
+    paddingTop: 8,
+    paddingBottom: 10,
+    paddingHorizontal: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 8,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
@@ -88,56 +87,56 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F1F5F9',
-    height: 42,
+    height: 40,
     borderRadius: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
   },
   searchIcon: {
-    marginRight: 8,
+    marginRight: 6,
   },
   input: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.text,
     paddingVertical: 0,
   },
   clearBtn: {
-    padding: 4,
+    padding: 2,
   },
   cameraBtn: {
-    paddingLeft: 8,
-    paddingRight: 4,
+    paddingLeft: 6,
+    paddingRight: 2,
     borderLeftWidth: 1,
     borderLeftColor: '#CBD5E1',
-    marginLeft: 6,
+    marginLeft: 4,
   },
   aiBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: COLORS.primaryLight,
     alignItems: 'center',
     justifyContent: 'center',
   },
   cartBtn: {
     position: 'relative',
-    padding: 4,
+    padding: 6,
   },
   badge: {
     position: 'absolute',
-    top: -2,
-    right: -4,
+    top: 0,
+    right: 0,
     backgroundColor: COLORS.danger,
-    borderRadius: 10,
-    minWidth: 18,
-    height: 18,
+    borderRadius: 9,
+    minWidth: 16,
+    height: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 4,
+    paddingHorizontal: 3,
   },
   badgeText: {
     color: '#FFFFFF',
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '700',
   },
 });

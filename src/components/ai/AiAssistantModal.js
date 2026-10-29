@@ -487,3 +487,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#CBD5E1',
   },
 });
+

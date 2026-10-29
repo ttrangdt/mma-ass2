@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '../../constants/theme';
 
 export const PriceSummary = ({
@@ -7,8 +8,11 @@ export const PriceSummary = ({
   totalItemCount = 0,
   onCheckout,
 }) => {
+  const insets = useSafeAreaInsets();
+  const bottomPadding = Math.max(14, insets.bottom + 6);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: bottomPadding }]}>
       <View style={styles.textCol}>
         <Text style={styles.label}>Tổng cộng ({totalItemCount} món):</Text>
         <Text style={styles.price}>${totalPrice.toFixed(2)}</Text>
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
     paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
