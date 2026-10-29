@@ -10,10 +10,10 @@ export default function App() {
     <SafeAreaProvider>
       <CartProvider>
         <FavoritesProvider>
-          <StatusBar style="light" />
+          <StatusBar style="dark" />
           <AppNavigator />
         </FavoritesProvider>
       </CartProvider>
-    </SafeAreaProvider>);
-
+    </SafeAreaProvider>
+  );
 }

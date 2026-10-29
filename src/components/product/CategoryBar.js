@@ -1,124 +1,72 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { ScrollView, TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { COLORS } from '../../constants/theme';
 
-import { SHOPEE_COLORS } from '../../constants/theme';
-
-
-
-
-
-
-
-const CATEGORY_ICONS = {
-  all: 'grid',
-  beauty: 'sparkles',
-  fragrances: 'flask',
-  furniture: 'bed',
-  groceries: 'nutrition',
-  laptops: 'laptop',
-  smartphones: 'phone-portrait',
-  'skin-care': 'water',
-  'home-decoration': 'color-palette',
-  kitchen: 'restaurant',
-  mens: 'shirt',
-  womens: 'bag-handle'
-};
-
-export const CategoryBar = ({
-  categories,
-  selectedCategory,
-  onSelectCategory
-}) => {
-  const allCategories = [
-  { slug: 'all', name: 'Tất cả' },
-  ...categories];
-
-
+export const CategoryBar = ({ categories = [], selectedCategory, onSelectCategory }) => {
   return (
     <View style={styles.container}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}>
-        
-        {allCategories.map((cat) => {
-          const isSelected = selectedCategory === cat.slug;
-          const iconName =
-          CATEGORY_ICONS[cat.slug] || CATEGORY_ICONS[cat.slug.toLowerCase()] || 'pricetag';
+        contentContainerStyle={styles.scroll}
+      >
+        <TouchableOpacity
+          style={[styles.pill, selectedCategory === 'all' && styles.pillActive]}
+          onPress={() => onSelectCategory('all')}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.text, selectedCategory === 'all' && styles.textActive]}>
+            Tất cả
+          </Text>
+        </TouchableOpacity>
 
+        {categories.map((cat) => {
+          const isSelected = selectedCategory === cat.slug;
           return (
             <TouchableOpacity
               key={cat.slug}
-              style={[styles.categoryItem, isSelected && styles.categoryItemActive]}
+              style={[styles.pill, isSelected && styles.pillActive]}
               onPress={() => onSelectCategory(cat.slug)}
-              activeOpacity={0.7}>
-              
-              <View
-                style={[
-                styles.iconCircle,
-                isSelected && styles.iconCircleActive]
-                }>
-                
-                <Ionicons
-                  name={iconName}
-                  size={18}
-                  color={isSelected ? '#FFFFFF' : SHOPEE_COLORS.primary} />
-                
-              </View>
-              <Text
-                style={[styles.categoryName, isSelected && styles.categoryNameActive]}
-                numberOfLines={1}>
-                
+              activeOpacity={0.7}
+            >
+              <Text style={[styles.text, isSelected && styles.textActive]}>
                 {cat.name}
               </Text>
-            </TouchableOpacity>);
-
+            </TouchableOpacity>
+          );
         })}
       </ScrollView>
-    </View>);
-
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FFFFFF',
-    paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE'
+    borderBottomColor: COLORS.border,
   },
-  scrollContent: {
-    paddingHorizontal: 10,
-    gap: 12
+  scroll: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    gap: 8,
   },
-  categoryItem: {
-    alignItems: 'center',
-    width: 68
+  pill: {
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: 20,
+    backgroundColor: '#F1F5F9',
   },
-  categoryItemActive: {},
-  iconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#FFF2EE',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 6,
-    borderWidth: 1,
-    borderColor: '#FFE0D6'
+  pillActive: {
+    backgroundColor: COLORS.primary,
   },
-  iconCircleActive: {
-    backgroundColor: SHOPEE_COLORS.primary,
-    borderColor: SHOPEE_COLORS.primaryDark
+  text: {
+    fontSize: 13,
+    color: COLORS.textSecondary,
+    fontWeight: '500',
   },
-  categoryName: {
-    fontSize: 11,
-    color: SHOPEE_COLORS.textSecondary,
-    textAlign: 'center',
-    fontWeight: '500'
+  textActive: {
+    color: '#FFFFFF',
+    fontWeight: '600',
   },
-  categoryNameActive: {
-    color: SHOPEE_COLORS.primary,
-    fontWeight: '700'
-  }
 });

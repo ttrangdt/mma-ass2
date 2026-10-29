@@ -1,129 +1,66 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { COLORS } from '../../constants/theme';
 
-import { SHOPEE_COLORS } from '../../constants/theme';
-
-
-
-
-
-
-
-export const SortFilterBar = ({
-  currentSort,
-  onSortChange,
-  totalResults
-}) => {
-  const isPriceSort = currentSort === 'price_asc' || currentSort === 'price_desc';
-
-  const handlePriceToggle = () => {
-    if (currentSort === 'price_asc') {
-      onSortChange('price_desc');
-    } else {
-      onSortChange('price_asc');
-    }
-  };
+export const SortFilterBar = ({ currentSort, onSortChange, totalResults = 0 }) => {
+  const options = [
+    { key: 'default', label: 'Phổ biến' },
+    { key: 'rating', label: 'Đánh giá cao' },
+    { key: 'price_asc', label: 'Giá ↑' },
+    { key: 'price_desc', label: 'Giá ↓' },
+  ];
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={[styles.tab, currentSort === 'default' && styles.tabActive]}
-        onPress={() => onSortChange('default')}
-        activeOpacity={0.7}>
-        
-        <Text
-          style={[styles.tabText, currentSort === 'default' && styles.tabTextActive]}>
-          
-          Phổ biến
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.tab, currentSort === 'rating' && styles.tabActive]}
-        onPress={() => onSortChange('rating')}
-        activeOpacity={0.7}>
-        
-        <Text
-          style={[styles.tabText, currentSort === 'rating' && styles.tabTextActive]}>
-          
-          Đánh giá cao
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.tab, currentSort === 'sold' && styles.tabActive]}
-        onPress={() => onSortChange('sold')}
-        activeOpacity={0.7}>
-        
-        <Text style={[styles.tabText, currentSort === 'sold' && styles.tabTextActive]}>
-          Bán chạy
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.tab, isPriceSort && styles.tabActive]}
-        onPress={handlePriceToggle}
-        activeOpacity={0.7}>
-        
-        <Text style={[styles.tabText, isPriceSort && styles.tabTextActive]}>Giá</Text>
-        <View style={styles.priceIcons}>
-          <Ionicons
-            name="caret-up"
-            size={10}
-            color={
-            currentSort === 'price_asc' ?
-            SHOPEE_COLORS.primary :
-            SHOPEE_COLORS.textMuted
-            } />
-          
-          <Ionicons
-            name="caret-down"
-            size={10}
-            color={
-            currentSort === 'price_desc' ?
-            SHOPEE_COLORS.primary :
-            SHOPEE_COLORS.textMuted
-            } />
-          
-        </View>
-      </TouchableOpacity>
-    </View>);
-
+      <View style={styles.optionsRow}>
+        {options.map((opt) => {
+          const isActive = currentSort === opt.key;
+          return (
+            <TouchableOpacity
+              key={opt.key}
+              style={[styles.btn, isActive && styles.btnActive]}
+              onPress={() => onSortChange(opt.key)}
+              activeOpacity={0.7}
+            >
+              <Text style={[styles.btnText, isActive && styles.btnTextActive]}>
+                {opt.label}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     backgroundColor: '#FFFFFF',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
-    borderTopWidth: 1,
-    borderTopColor: '#EEEEEE'
+    borderBottomColor: COLORS.border,
   },
-  tab: {
-    flex: 1,
-    paddingVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+  optionsRow: {
     flexDirection: 'row',
-    borderBottomWidth: 2,
-    borderBottomColor: 'transparent'
+    justifyContent: 'space-around',
+    gap: 6,
   },
-  tabActive: {
-    borderBottomColor: SHOPEE_COLORS.primary
+  btn: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 6,
   },
-  tabText: {
-    fontSize: 13,
-    color: SHOPEE_COLORS.textSecondary,
-    fontWeight: '500'
+  btnActive: {
+    backgroundColor: COLORS.primaryLight,
   },
-  tabTextActive: {
-    color: SHOPEE_COLORS.primary,
-    fontWeight: '700'
+  btnText: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+    fontWeight: '500',
   },
-  priceIcons: {
-    marginLeft: 3,
-    justifyContent: 'center'
-  }
+  btnTextActive: {
+    color: COLORS.primary,
+    fontWeight: '700',
+  },
 });

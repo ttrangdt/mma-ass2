@@ -1,195 +1,75 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { SHOPEE_COLORS } from '../../constants/theme';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { COLORS } from '../../constants/theme';
 
 export const PriceSummary = ({
-  totalPrice,
-  finalPrice,
-  discountAmount,
-  selectedItemCount,
-  totalItemCount,
-  allSelected,
-  onToggleSelectAll,
+  totalPrice = 0,
+  totalItemCount = 0,
   onCheckout,
-  appliedVoucher,
-  onOpenVoucherModal
 }) => {
   return (
-    <View style={styles.wrapper}>
-      {/* Shopee Voucher Row */}
-      <TouchableOpacity
-        style={styles.voucherRow}
-        onPress={onOpenVoucherModal}
-        activeOpacity={0.7}>
-        
-        <View style={styles.voucherLeft}>
-          <Ionicons name="ticket-outline" size={18} color={SHOPEE_COLORS.primary} />
-          <Text style={styles.voucherTitle}>Shopee Voucher</Text>
-        </View>
-        <View style={styles.voucherRight}>
-          <Text style={styles.voucherCode}>
-            {appliedVoucher ? appliedVoucher.code : 'Chọn hoặc nhập mã'}
-          </Text>
-          <Ionicons name="chevron-forward" size={14} color="#999999" />
-        </View>
-      </TouchableOpacity>
-
-      {/* Main Checkout Footer */}
-      <View style={styles.checkoutBar}>
-        {/* Select All Checkbox */}
-        <TouchableOpacity
-          style={styles.selectAllRow}
-          onPress={onToggleSelectAll}
-          activeOpacity={0.7}>
-          
-          <Ionicons
-            name={allSelected ? 'checkbox' : 'square-outline'}
-            size={22}
-            color={allSelected ? SHOPEE_COLORS.primary : '#999999'} />
-          
-          <Text style={styles.selectAllText}>Tất cả</Text>
-        </TouchableOpacity>
-
-        {/* Total Price Column */}
-        <View style={styles.priceContainer}>
-          <View style={styles.totalRow}>
-            <Text style={styles.totalLabel}>Tổng thanh toán:</Text>
-            <Text style={styles.totalAmount}>${finalPrice.toFixed(2)}</Text>
-          </View>
-          {discountAmount > 0 &&
-          <Text style={styles.savingsText}>
-              Tiết kiệm ${discountAmount.toFixed(2)}
-            </Text>
-          }
-        </View>
-
-        {/* Buy Now Button */}
-        <TouchableOpacity
-          style={[
-          styles.checkoutBtn,
-          selectedItemCount === 0 && styles.checkoutBtnDisabled]
-          }
-          onPress={onCheckout}
-          disabled={selectedItemCount === 0}
-          activeOpacity={0.8}>
-          
-          <Text style={styles.checkoutBtnText}>
-            Mua Hàng ({selectedItemCount})
-          </Text>
-        </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.textCol}>
+        <Text style={styles.label}>Tổng cộng ({totalItemCount} món):</Text>
+        <Text style={styles.price}>${totalPrice.toFixed(2)}</Text>
       </View>
-    </View>);
 
+      <TouchableOpacity
+        style={[
+          styles.checkoutBtn,
+          totalItemCount === 0 && styles.checkoutBtnDisabled,
+        ]}
+        onPress={onCheckout}
+        disabled={totalItemCount === 0}
+        activeOpacity={0.8}
+      >
+        <Text style={styles.checkoutBtnText}>Thanh toán</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 4,
-    elevation: 8
-  },
-  voucherRow: {
+    borderTopColor: COLORS.border,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F5F5F5'
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 4,
   },
-  voucherLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6
+  textCol: {
+    justifyContent: 'center',
   },
-  voucherTitle: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: SHOPEE_COLORS.text
-  },
-  voucherRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4
-  },
-  voucherCode: {
+  label: {
     fontSize: 12,
-    color: SHOPEE_COLORS.primary,
-    fontWeight: '500'
+    color: COLORS.textSecondary,
   },
-  checkoutBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 56
-  },
-  selectAllRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 12,
-    paddingRight: 8,
-    gap: 6
-  },
-  selectAllText: {
-    fontSize: 12,
-    color: SHOPEE_COLORS.textSecondary
-  },
-  priceContainer: {
-    flex: 1,
-    alignItems: 'flex-end',
-    paddingRight: 10,
-    justifyContent: 'center'
-  },
-  totalRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline'
-  },
-  totalLabel: {
-    fontSize: 11,
-    color: SHOPEE_COLORS.text,
-    marginRight: 4
-  },
-  totalAmount: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: SHOPEE_COLORS.primary
-  },
-  savingsText: {
-    fontSize: 10,
-    color: SHOPEE_COLORS.primary
+  price: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: COLORS.primary,
+    marginTop: 2,
   },
   checkoutBtn: {
-    backgroundColor: SHOPEE_COLORS.primary,
-    height: '100%',
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
   },
   checkoutBtnDisabled: {
-    backgroundColor: '#CCCCCC'
+    backgroundColor: '#94A3B8',
   },
   checkoutBtnText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '700'
-  }
+    fontWeight: '700',
+  },
 });
