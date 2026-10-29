@@ -4,7 +4,7 @@
     "slug": "assignment-Trang",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "https://raw.githubusercontent.com/ttrangdt/mma-ass2/main/assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
@@ -12,17 +12,14 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "foregroundImage": "https://raw.githubusercontent.com/ttrangdt/mma-ass2/main/assets/android-icon-foreground.png",
+        "backgroundImage": "https://raw.githubusercontent.com/ttrangdt/mma-ass2/main/assets/android-icon-background.png",
+        "monochromeImage": "https://raw.githubusercontent.com/ttrangdt/mma-ass2/main/assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "expo-font"
-    ]
+      "favicon": "https://raw.githubusercontent.com/ttrangdt/mma-ass2/main/assets/favicon.png"
+    }
   }
 }

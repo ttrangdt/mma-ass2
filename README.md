@@ -1,6 +1,6 @@
 # Assignment 2: E-Commerce Product App with Pagination and Cart State (Shopee Clone)
 
-Dự án ứng dụng E-Commerce Mobile hoàn chỉnh được xây dựng trên nền tảng **React Native / Expo (TypeScript)** với phong cách thiết kế chuyên nghiệp, mô phỏng chuẩn xác giao diện và trải nghiệm người dùng của **Shopee**.
+Dự án ứng dụng E-Commerce Mobile hoàn chỉnh được xây dựng trên nền tảng **React Native / Expo (JavaScript - .js)** với phong cách thiết kế chuyên nghiệp, mô phỏng chuẩn xác giao diện và trải nghiệm người dùng của **Shopee**.
 
 ---
 
@@ -49,62 +49,63 @@ Dự án ứng dụng E-Commerce Mobile hoàn chỉnh được xây dựng trên
 
 ---
 
-### 3. Cấu Trúc Kiến Trúc (Atomic Components & Custom Hooks)
+### 3. Cấu Trúc Kiến Trúc (JavaScript .js)
 
 ```
+App.js                         # Root Component
+index.js                       # Expo Entry Point
 src/
 ├── api/
-│   └── dummyJsonApi.ts        # Tương tác API DummyJSON, xử lý phân trang & caching
+│   └── dummyJsonApi.js        # Tương tác API DummyJSON, xử lý phân trang & caching
 ├── constants/
-│   └── theme.ts               # Màu sắc Shopee (#EE4D2D, #D0011B, v.v.)
+│   └── theme.js               # Màu sắc Shopee (#EE4D2D, #D0011B, v.v.)
 ├── types/
-│   └── product.ts             # Định nghĩa Type TypeScript cho Product, Cart, Review
+│   └── product.js             # Model reference
 ├── context/
-│   ├── CartContext.tsx        # Quản lý State giỏ hàng toàn cục với Context API
-│   └── FavoritesContext.tsx   # Quản lý State danh sách yêu thích
+│   ├── CartContext.js         # Quản lý State giỏ hàng toàn cục với Context API
+│   └── FavoritesContext.js    # Quản lý State danh sách yêu thích
 ├── hooks/
-│   ├── useCart.ts             # Custom hook quản lý logic giỏ hàng
-│   ├── useFavorites.ts        # Custom hook yêu thích
-│   └── useProducts.ts         # Custom hook fetch dữ liệu, phân trang & tìm kiếm
+│   ├── useCart.js             # Custom hook quản lý logic giỏ hàng
+│   ├── useFavorites.js        # Custom hook yêu thích
+│   └── useProducts.js         # Custom hook fetch dữ liệu, phân trang & tìm kiếm
 ├── components/
 │   ├── common/
-│   │   ├── HeaderShopee.tsx   # Header chuẩn phong cách Shopee
-│   │   ├── ShopeeBadge.tsx    # Huy hiệu Mall, Yêu thích, Giảm giá
-│   │   ├── RatingStars.tsx    # Hiển thị số sao đánh giá
-│   │   ├── EmptyState.tsx     # Giao diện khi danh sách rỗng
-│   │   └── NotificationToast.tsx # Thông báo nổi "Đã thêm vào giỏ"
+│   │   ├── HeaderShopee.js    # Header chuẩn phong cách Shopee
+│   │   ├── ShopeeBadge.js     # Huy hiệu Mall, Yêu thích, Giảm giá
+│   │   ├── RatingStars.js     # Hiển thị số sao đánh giá
+│   │   ├── EmptyState.js      # Giao diện khi danh sách rỗng
+│   │   └── NotificationToast.js # Thông báo nổi "Đã thêm vào giỏ"
 │   ├── product/
-│   │   ├── ProductCard.tsx    # Thẻ sản phẩm chuẩn lưới 2 cột
-│   │   ├── CategoryBar.tsx    # Danh mục cuộn ngang
-│   │   ├── BannerSlider.tsx   # Banner carousel khuyến mãi
-│   │   └── SortFilterBar.tsx  # Thanh lọc & sắp xếp tab
+│   │   ├── ProductCard.js     # Thẻ sản phẩm chuẩn lưới 2 cột
+│   │   ├── CategoryBar.js     # Danh mục cuộn ngang
+│   │   ├── BannerSlider.js    # Banner carousel khuyến mãi
+│   │   └── SortFilterBar.js   # Thanh lọc & sắp xếp tab
 │   ├── cart/
-│   │   ├── CartItem.tsx       # Từng dòng sản phẩm trong giỏ (Atomic component)
-│   │   ├── PriceSummary.tsx   # Thanh tóm tắt giá & nút mua (Atomic component)
-│   │   ├── FreeShippingBar.tsx# Thanh đo điều kiện Freeship
-│   │   └── VoucherModal.tsx   # Bảng chọn voucher giảm giá
+│   │   ├── CartItem.js        # Từng dòng sản phẩm trong giỏ (Atomic component)
+│   │   ├── PriceSummary.js    # Thanh tóm tắt giá & nút mua (Atomic component)
+│   │   ├── FreeShippingBar.js # Thanh đo điều kiện Freeship
+│   │   └── VoucherModal.js    # Bảng chọn voucher giảm giá
 │   ├── image/
-│   │   └── VisualSearchModal.tsx # Tính năng tìm kiếm bằng hình ảnh
+│   │   └── VisualSearchModal.js # Tính năng tìm kiếm bằng hình ảnh
 │   └── ai/
-│       └── ShopeeAiModal.tsx  # Trợ lý ảo AI mua sắm Shopee
+│       └── ShopeeAiModal.js   # Trợ lý ảo AI mua sắm Shopee
 ├── screens/
-│   ├── ProductListScreen.tsx  # Màn hình chính phân trang vô hạn
-│   ├── ProductDetailScreen.tsx# Màn hình chi tiết sản phẩm
-│   ├── CartScreen.tsx         # Màn hình giỏ hàng
-│   └── FavoritesScreen.tsx    # Màn hình yêu thích
+│   ├── ProductListScreen.js   # Màn hình chính phân trang vô hạn
+│   ├── ProductDetailScreen.js # Màn hình chi tiết sản phẩm
+│   ├── CartScreen.js          # Màn hình giỏ hàng
+│   └── FavoritesScreen.js     # Màn hình yêu thích
 └── navigation/
-    └── AppNavigator.tsx       # Cấu hình Stack & Bottom Tab Navigation
+    └── AppNavigator.js        # Cấu hình Stack & Bottom Tab Navigation
 ```
 
 ---
 
 ### 4. Hướng Dẫn Chạy Ứng Dụng
 
-Cài đặt phụ thuộc và khởi động ứng dụng:
-
+#### Chạy tại Local:
 ```bash
-# Kiểm tra định dạng TypeScript
-npx tsc --noEmit
+# Cài đặt thư viện (nếu chưa cài)
+npm install
 
 # Kiểm tra tương thích cấu hình Expo
 npx expo-doctor
@@ -112,8 +113,12 @@ npx expo-doctor
 # Khởi chạy dự án Expo Dev Server
 npx expo start
 ```
-
 * Nhấn `w` để mở xem trên nền tảng Web.
 * Nhấn `a` để mở trên thiết bị giả lập Android.
 * Quét mã QR bằng ứng dụng **Expo Go** trên điện thoại thật (iOS / Android).
+
+#### Chạy trên Expo Snack:
+Truy cập trực tiếp:
+[https://snack.expo.dev/@github/ttrangdt/mma-ass2](https://snack.expo.dev/@github/ttrangdt/mma-ass2)
+
 
