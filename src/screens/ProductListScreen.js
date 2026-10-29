@@ -19,6 +19,7 @@ import { SortFilterBar } from '../components/product/SortFilterBar';
 import { EmptyState } from '../components/common/EmptyState';
 import { NotificationToast } from '../components/common/NotificationToast';
 import { VisualSearchModal } from '../components/image/VisualSearchModal';
+import { AiAssistantModal } from '../components/ai/AiAssistantModal';
 import { COLORS } from '../constants/theme';
 
 export const ProductListScreen = () => {
@@ -45,6 +46,7 @@ export const ProductListScreen = () => {
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState('Đã thêm vào giỏ hàng!');
   const [visualSearchVisible, setVisualSearchVisible] = useState(false);
+  const [aiModalVisible, setAiModalVisible] = useState(false);
 
   useEffect(() => {
     dummyJsonApi
@@ -113,11 +115,12 @@ export const ProductListScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
 
-      {/* Clean Header */}
+      {/* Clean Header with AI and Visual Search */}
       <Header
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onCameraPress={() => setVisualSearchVisible(true)}
+        onAiPress={() => setAiModalVisible(true)}
         onCartPress={() => navigation.navigate('Cart')}
         placeholder="Tìm kiếm sản phẩm..."
       />
@@ -180,6 +183,16 @@ export const ProductListScreen = () => {
         visible={visualSearchVisible}
         onClose={() => setVisualSearchVisible(false)}
         onSearchByKeyword={handleVisualSearch}
+      />
+
+      {/* Gemini AI Shopping Assistant Modal */}
+      <AiAssistantModal
+        visible={aiModalVisible}
+        onClose={() => setAiModalVisible(false)}
+        onSearchProduct={(q) => {
+          setSearchQuery(q);
+          setAiModalVisible(false);
+        }}
       />
 
       <NotificationToast visible={toastVisible} message={toastMessage} />

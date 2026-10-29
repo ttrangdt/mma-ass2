@@ -15,6 +15,7 @@ export const Header = ({
   searchQuery = '',
   onSearchChange,
   onCameraPress,
+  onAiPress,
   onCartPress,
   placeholder = 'Tìm kiếm sản phẩm...',
 }) => {
@@ -45,6 +46,14 @@ export const Header = ({
         )}
       </View>
 
+      {/* AI Assistant Button */}
+      {onAiPress && (
+        <TouchableOpacity onPress={onAiPress} style={styles.aiBtn} activeOpacity={0.7}>
+          <Ionicons name="sparkles" size={20} color={COLORS.primary} />
+        </TouchableOpacity>
+      )}
+
+      {/* Cart Button */}
       <TouchableOpacity onPress={onCartPress} style={styles.cartBtn} activeOpacity={0.7}>
         <Ionicons name="cart-outline" size={26} color={COLORS.text} />
         {totalItemCount > 0 && (
@@ -70,7 +79,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 10,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
@@ -101,6 +110,14 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderLeftColor: '#CBD5E1',
     marginLeft: 6,
+  },
+  aiBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: COLORS.primaryLight,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cartBtn: {
     position: 'relative',
