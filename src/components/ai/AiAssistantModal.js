@@ -158,7 +158,6 @@ export const AiAssistantModal = ({ visible, onClose, onSearchProduct }) => {
             </View>
           </View>
 
-          {/* Optional API Key Input (cho phép test trên Expo Snack) */}
           {showKeyInput && (
             <View style={styles.keyInputContainer}>
               <Text style={styles.keyInputLabel}>Gemini API Key:</Text>

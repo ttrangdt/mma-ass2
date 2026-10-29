@@ -3,6 +3,15 @@
     "name": "Shopee App",
     "slug": "shopee-app",
     "version": "1.0.0",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "android": {
+      "package": "com.ttrang.shopeeapp"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8078cd3b-6458-4a34-8a37-25aa10e66001"
+      }
+    },
+    "owner": "ttrang2432"
   }
 }
